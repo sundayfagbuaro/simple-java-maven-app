@@ -29,7 +29,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building the image"
-                sh 'sudo docker build -t sundayfagbuaro/simple-java-maven-app:latest .'
+                sh 'docker build -t sundayfagbuaro/simple-java-maven-app:latest .'
             }
         }
 
