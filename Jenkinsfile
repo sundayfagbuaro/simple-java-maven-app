@@ -25,5 +25,22 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh' 
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building the image"
+                sh 'docker build -t sundayfagbuaro/simple-java-maven-app:latest .'
+            }
+        }
+
+        stage ("Push Docker Image") {
+            steps {
+                    echo "Pushing the built image to docker hub"
+                    withCredentials([usernameColonPassword(credentialsId: 'docker_cred_demo', variable: 'docker_cred')]) {
+                sh 'docker login -u sundayfagbuaro -p ${docker_cred}' 
+                }
+                sh 'docker push sundayfagbuaro/simple-java-maven-app:latest'
+            }
+        }
     }
 }
