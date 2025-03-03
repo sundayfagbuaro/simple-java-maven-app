@@ -43,5 +43,18 @@ pipeline {
             }
         }
 
+        stage('Run Container on The Dev Server') {
+            steps {
+                script {
+                    sshagent(['dev_server']) {
+                        sh """ssh -tt -o StrictHostKeyChecking=no bobosunne@192.168.1.85 << EOF
+                        docker run -d -p 8070:8070 --name sample-java-maven-app sundayfagbuaro/simple-java-maven-app:latest
+                        exit
+                        EOF"""
+                    }
+                }
+            }
+        }
+
     }
 }
