@@ -42,5 +42,21 @@ pipeline {
                 sh 'docker push sundayfagbuaro/simple-java-maven-app:latest'
             }
         }
+
+        stage('Deploy container to Docker Host') {
+            steps {
+                echo "Deploying container to docker host"
+                script {
+                    sshagent(['remote-docker-host']) {
+                    sh """ ssh -tt -o StrictHostKeyChecking=no bobosunne@192.168.1.158 << EOF
+                        
+                        docker run -d -p 8070:8070 --name deploy_test sundayfagbuaro/simple-java-maven-app:latest
+                        exit
+                        EOF"""                    
+                }
+                
+                }
+            }
+        }
     }
 }
