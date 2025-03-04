@@ -36,8 +36,8 @@ pipeline {
         stage ("Push Docker Image") {
             steps {
                     echo "Pushing the built image to docker hub"
-                    withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'docker_pwd', usernameVariable: 'docker_user')]) {
-                sh 'docker login -u ${docker_user} -p ${docker_pwd}' 
+                    withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                sh 'docker login -u ${docker_user} -p ${docker_pass}' 
                 }
                 sh 'docker push sundayfagbuaro/simple-java-maven-app:latest'
             }
