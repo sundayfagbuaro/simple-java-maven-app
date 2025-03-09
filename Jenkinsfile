@@ -5,11 +5,9 @@ pipeline{
         jdk   'jdk-21'
     }
     stages{
-        stages {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
-                }
             }
         }
     }
