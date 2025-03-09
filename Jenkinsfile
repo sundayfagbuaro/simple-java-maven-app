@@ -25,5 +25,11 @@ pipeline{
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+        stage('Build Docker Image') {
+            steps{
+                echo "Building Docker Image From The Artifact"
+                sh 'docker build -t sundayfagbuaro/maven-java-app-build-demo:v1 .'
+            }
+        }
     }
 }
