@@ -46,7 +46,7 @@ pipeline{
                 script{
                     sshagent(['Jenkins_docker_host']) {
                         sh """ 
-                            ssh -tt -o StrictHostKeyChecking=no bobosunne@10.10.1.42
+                            ssh -tt -o StrictHostKeyChecking=no bobosunne@10.10.1.42 << EOF
 
                             docker run -d --name simple-maven-java-app -p 8070:8070 sundayfagbuaro/maven-java-app-build-demo:v1
                         """
