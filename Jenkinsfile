@@ -31,5 +31,14 @@ pipeline{
                 sh 'docker build -t sundayfagbuaro/maven-java-app-build-demo:v1 .'
             }
         }
+        stage('Push Docker Image to DockerHub') {
+            steps{
+                echo "Pushing Image to DockerHub"
+                withCredentials([usernamePassword(credentialsId: 'docker-pat', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                     sh 'docker login -u ${docker_user} -p ${docker_pass}'
+                }
+                sh 'docker push sundayfagbuaro/maven-java-app-build-demo:v1'
+            }
+        }
     }
 }
