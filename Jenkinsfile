@@ -40,5 +40,19 @@ pipeline{
                 sh 'docker push sundayfagbuaro/maven-java-app-build-demo:v1'
             }
         }
+        stage('Deploy Application to Docker Host') {
+            steps{
+                echo "Deploying Application To Docker Host"
+                script{
+                    sshagent(['Jenkins_docker_host']) {
+                        sh """ 
+                            ssh -tt -o StrictHostKeyChecking=no bobosunne@10.10.1.42
+
+                            docker run -d --name simple-maven-java-app -p 8070:8070 sundayfagbuaro/maven-java-app-build-demo:v1
+                        """
+                    }
+                }
+            }
+        }
     }
 }
