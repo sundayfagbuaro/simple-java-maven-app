@@ -25,6 +25,24 @@ pipeline{
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+        stage('Build Docker Image from Artifact') {
+            echo "Building docker image"
+            steps{
+                sh "docker build -t simple-java-maven-app-demo ."
+    
+            }
+        }
+        stage('Push Image to docker hub') {
+            steps{
+                echo "Pushing docker image to docker hub"
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+                    sh "docker login -u ${docker_user} -p ${docker_pass}"
+                }  
+                sh "docker tab simple-java-maven-app sundayfagbuaro/simple-java-maven-app-demo:v1"
+                sh "docker push sundayfagbuaro/simple-java-maven-app-demo:v1"
+
+            }
+        }
     }
         
 }
