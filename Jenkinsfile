@@ -38,7 +38,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
                     sh "docker login -u ${docker_user} -p ${docker_pass}"
                 }  
-                sh "docker tag simple-java-maven-app sundayfagbuaro/simple-java-maven-app-demo:v1"
+                sh "docker tag simple-java-maven-app-demo sundayfagbuaro/simple-java-maven-app-demo:v1"
                 sh "docker push sundayfagbuaro/simple-java-maven-app-demo:v1"
 
             }
