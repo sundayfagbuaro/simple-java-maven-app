@@ -26,8 +26,8 @@ pipeline{
             }
         }
         stage('Build Docker Image from Artifact') {
-            echo "Building docker image"
             steps{
+                echo "Building docker image"
                 sh "docker build -t simple-java-maven-app-demo ."
     
             }
