@@ -41,6 +41,21 @@ pipeline{
                 sh "docker tag simple-maven-java-app-class-demo sundayfagbuaro/simple-maven-java-app-class-demo:v1"
             }
         }
+        stage('Deploy Application to Docker Host') {
+            steps{
+                echo "Dep[loying Containter to Docker Host]"
+                sshagent(['docker-lab-user']) {
+                    sh """
+
+                    ssh -tt -o StrictHostKeyChecking=no bobosunne@10.10.1.42 << EOF
+                    docker run -d --name simple_maven -p 8080:8080 sundayfagbuaro/simple-maven-java-app-class-demo:v1
+                    exit
+                    EOF
+                    """
+                }
+            }
+            
+        }
 
     }       
 }
