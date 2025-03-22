@@ -39,6 +39,7 @@ pipeline{
                 }
 
                 sh "docker tag simple-maven-java-app-class-demo sundayfagbuaro/simple-maven-java-app-class-demo:v1"
+                sh "docker push sundayfagbuaro/simple-maven-java-app-class-demo:v1"
             }
         }
         stage('Deploy Application to Docker Host') {
